@@ -9,7 +9,7 @@ function sum(a, b) {
 
 ## Avoid
 ```js
-// adds two numbers together and returns result
+// Adds two numbers together and returns the result.
 function sum(a, b) {
   const result = a + b;
   return result;
