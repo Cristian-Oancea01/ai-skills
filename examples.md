@@ -2,6 +2,11 @@
 
 ## Good
 ```js
+// test first (TDD)
+test('sum adds two numbers', () => {
+  expect(sum(1, 2)).toBe(3);
+});
+
 function sum(a, b) {
   return a + b;
 }
@@ -19,3 +24,4 @@ function sum(a, b) {
 ## Rule of thumb
 - Smallest correct change.
 - No extra code, no extra comments.
+- Tests are mandatory for behavior changes.
