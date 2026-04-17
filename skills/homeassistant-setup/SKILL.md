@@ -7,22 +7,22 @@ compatibility: opencode
 
 ## Live system location
 
-- **NAS host**: 192.168.68.106
-- **HA config path on NAS**: `\\192.168.68.106\Public\HomeAssistantConfig\` (SMB)
-- **HA web UI**: http://192.168.68.106:8123
-- **Credentials**: stored locally at `C:\Users\oance\.config\opencode\local\nas_access.md` — never commit
+- **NAS host**: `<nas-ip>`
+- **HA config path on NAS**: `\\<nas-ip>\Public\HomeAssistantConfig\` (SMB)
+- **HA web UI**: `http://<nas-ip>:<ha-port>`
+- **Credentials**: stored locally at `<opencode-local-dir>/nas_access.md` — never commit
 
 ## Accessing the NAS in an OpenCode session
 
-Always mount the SMB share before reading/writing config files. Credentials are in `local/nas_access.md`.
+Always mount the SMB share before reading/writing config files. Credentials are in `<opencode-local-dir>/nas_access.md`.
 
 ```powershell
-# Mount (get password from C:\Users\oance\.config\opencode\local\nas_access.md)
+# Mount (get password from <opencode-local-dir>/nas_access.md)
 $cred = New-Object System.Management.Automation.PSCredential(
-    "MCP",
+    "<nas-smb-user>",
     (ConvertTo-SecureString "<password>" -AsPlainText -Force)
 )
-New-PSDrive -Name Z -PSProvider FileSystem -Root "\\192.168.68.106\Public" -Credential $cred -Persist
+New-PSDrive -Name Z -PSProvider FileSystem -Root "\\<nas-ip>\Public" -Credential $cred -Persist
 # HA config now at Z:\HomeAssistantConfig\
 
 # Unmount when done
@@ -31,14 +31,14 @@ Remove-PSDrive Z
 
 ### Backup before any changes
 ```powershell
-# Script saved at: C:\Users\oance\AppData\Local\Temp\nas_backup.ps1
-powershell -ExecutionPolicy Bypass -File "C:\Users\oance\AppData\Local\Temp\nas_backup.ps1"
+# Script saved at: <temp-dir>/nas_backup.ps1
+powershell -ExecutionPolicy Bypass -File "<temp-dir>/nas_backup.ps1"
 # Creates: Z:\HomeAssistantConfig_backup_<yyyyMMdd_HHmmss>\
 ```
 
 ### MCP server (for NAS system queries, not file editing)
-- URL and token in `C:\Users\oance\.config\opencode\opencode.json`
-- Reusable call script: `C:\Users\oance\AppData\Local\Temp\mcp_list_files.ps1`
+- URL and token in `<opencode-config-dir>/opencode.json`
+- Reusable call script: `<temp-dir>/mcp_list_files.ps1`
 - **Note**: MCP `list_files` times out on large shares — use SMB mount instead for file access
 
 ## Architecture
@@ -156,7 +156,7 @@ Add to `configuration.yaml`:
 ```yaml
 homeassistant:
   external_url: "https://yourdomain.com"
-  internal_url: "http://192.168.1.10:8123"
+  internal_url: "http://<nas-ip>:<ha-port>"
 
 http:
   use_x_forwarded_for: true
@@ -267,7 +267,7 @@ google_assistant:
 
 ### 9. Komfovent (Already Integrated)
 
-No setup needed. Custom component `komfovent` installed via HACS. Modbus at 192.168.68.101:502.
+No setup needed. Custom component `komfovent` installed via HACS. Modbus at `<komfovent-ip>:<modbus-port>`.
 
 Real entity IDs (verified from running system):
 - `climate.komfovent` — main climate entity
@@ -810,8 +810,8 @@ group:
   all_people:
     name: All People
     entities:
-      - person.cristian_oancea
-      - person.georgiana
+      - person.<resident-1>
+      - person.<resident-2>
 ```
 
 ---
