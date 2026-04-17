@@ -83,7 +83,8 @@ views:
 Use `sensor.komfovent_outdoor_temperature` — no separate weather integration needed.
 
 ### Automations
-- Files in `automations/` loaded via `!include_dir_merge_list` (files are lists, not single dicts)
+- Files in `automations/` loaded via `!include_dir_merge_list automations/` — each file is a YAML list
+- `automations/existing.yaml` — UI-created automations (dishwasher ECO program, sunset island light, etc.)
 - Real automation IDs: `blinds_open_at_sunrise`, `blinds_close_at_sunset`, `blinds_close_on_heat`, `ac_schedule_weekday_morning`, `ac_off_when_window_open`, `good_night_routine`, `konfortvent_away_mode`, `konfortvent_return_home`, `la_apus_aprinde_lumina_la_insula`
 
 ### Real Samsung AC entity IDs (SmartThings integration)
@@ -113,7 +114,7 @@ plink ... "docker exec home-assistant grep -o 'sensor.komfovent[a-z_]*' /config/
 ## File structure
 ```
 Z:\HomeAssistantConfig\
-├── configuration.yaml          # lovelace: mode: yaml (no resources: key)
+├── configuration.yaml          # default_config, lovelace yaml mode, http trusted proxies
 ├── ui-lovelace.yaml            # resources + !include views
 ├── automations\
 │   ├── existing.yaml           # UI-created automations
