@@ -70,6 +70,10 @@ views:
 - `select.komfovent_current_mode` (options: normal / boost / away)
 - `select.komfovent_scheduler_mode`, `select.komfovent_temperature_control`, `select.komfovent_flow_control`, `select.komfovent_eco_heat_recovery`
 - `sensor.komfovent_supply_temperature`, `sensor.komfovent_extract_temperature`, `sensor.komfovent_outdoor_temperature`
+- `sensor.komfovent_power_consumption` — **instantaneous power in W** (use this for "current power" displays)
+- `sensor.komfovent_heater_power` — instantaneous heater power in W
+- `sensor.komfovent_total_ahu_energy`, `sensor.komfovent_total_heater_energy`, `sensor.komfovent_total_recovered_energy` — **lifetime odometer totals in kWh**, NOT daily usage. Never label these as "daily" or "today".
+- `sensor.komfovent_specific_power_input`, `sensor.komfovent_heat_exchanger_efficiency`, `sensor.komfovent_energy_saving`
 - **No humidity sensor installed** — do not add humidity cards or automations
 
 ### Real Hue entity IDs
@@ -127,7 +131,7 @@ Z:\HomeAssistantConfig\
     ├── 01_home.yaml            # uses real Komfovent + Hue entities
     ├── 02_lighting.yaml        # all real Hue entity IDs
     ├── 03_climate.yaml         # Samsung (SmartThings) + LG (ThinQ) real entities + power/energy cards
-    ├── 04_ventilation.yaml     # real Komfovent entities, no humidity card
+    ├── 04_ventilation.yaml     # real Komfovent entities, power (W) + lifetime energy totals, no humidity card
     ├── 05_blinds.yaml          # placeholder VELUX covers
     └── 06_settings.yaml        # real automation entity IDs only
 ```
