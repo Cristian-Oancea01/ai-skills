@@ -52,6 +52,11 @@ function sum(a, b) {
 }
 ```
 
+## Continuous learning and improvement
+- Regularly revisit and refine skills to reflect better practices.
+- Keep all skill definitions as short as possible: remove redundancy, merge overlapping points.
+- Prefer concise, high-signal rules over verbose explanations.
+
 ## Rule of thumb
 - Smallest correct change.
 - No extra code, no extra comments.
