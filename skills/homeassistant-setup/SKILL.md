@@ -82,10 +82,23 @@ Use `sensor.komfovent_outdoor_temperature` — no separate weather integration n
 - Files in `automations/` loaded via `!include_dir_merge_list` (files are lists, not single dicts)
 - Real automation IDs: `blinds_open_at_sunrise`, `blinds_close_at_sunset`, `blinds_close_on_heat`, `ac_schedule_weekday_morning`, `ac_off_when_window_open`, `good_night_routine`, `konfortvent_away_mode`, `konfortvent_return_home`, `la_apus_aprinde_lumina_la_insula`
 
+### Real Samsung AC entity IDs (SmartThings integration)
+- `climate.room_air_conditioner` — modes: off/cool/heat/fan_only/dry/auto
+- `sensor.room_air_conditioner_temperatura` — room temperature
+- `sensor.room_air_conditioner_putere` — power (W)
+- `sensor.room_air_conditioner_energie` — energy (kWh)
+- `sensor.room_air_conditioner_energy_difference`, `_energy_saved`, `_power_energy`
+
+### Real LG AC entity IDs (LG ThinQ / smartthinq_sensors)
+- `climate.ac_living_sus` — modes: off/dry/auto/fan_only/cool/heat
+- `sensor.ac_living_sus_energy_yesterday`, `_this_month`, `_last_month`
+- Also exposes fridge: `sensor.frigider_sus_*` door sensor + fridge/freezer temp controls
+
 ### Known broken integrations (deferred)
 - **Miele**: `flatdict==4.0.1` fails on Python 3.14 (`pkg_resources` missing) — wait for upstream fix or remove
 - **govee_light_ble**: archived repo — remove via HACS UI
-- **AC units** (Samsung, LG, Vivax): not yet integrated — climate view shows placeholder template cards
+- **Vivax AC**: not yet integrated — tinytuya scan → LocalTuya or SmartIR fallback
+- **VELUX**: requires KLF200 hardware
 
 ### Verifying real entity IDs
 ```bash
@@ -113,7 +126,7 @@ Z:\HomeAssistantConfig\
 └── lovelace\views\
     ├── 01_home.yaml            # uses real Komfovent + Hue entities
     ├── 02_lighting.yaml        # all real Hue entity IDs
-    ├── 03_climate.yaml         # placeholder template cards (AC not integrated)
+    ├── 03_climate.yaml         # Samsung (SmartThings) + LG (ThinQ) real entities + power/energy cards
     ├── 04_ventilation.yaml     # real Komfovent entities, no humidity card
     ├── 05_blinds.yaml          # placeholder VELUX covers
     └── 06_settings.yaml        # real automation entity IDs only
@@ -123,8 +136,6 @@ Z:\HomeAssistantConfig\
 1. Remove `govee_light_ble` — HACS UI → remove archived repo
 2. Generate new Long-Lived Access Token in HA (old one expired)
 3. Govee: install `govee_lights_local` HACS, enable LAN in Govee app
-4. Samsung AC: SmartThings PAT → Settings → Add Integration → SmartThings
-5. LG AC: HACS `smartthinq_sensors` → Settings → Add Integration
-6. Vivax: tinytuya scan → if found use LocalTuya, else SmartIR
-7. VELUX: requires KLF200 hardware interface
-8. Miele: wait for flatdict fix or pin older HA image
+4. Vivax: tinytuya scan → if found use LocalTuya, else SmartIR
+5. VELUX: requires KLF200 hardware interface
+6. Miele: wait for flatdict fix or pin older HA image
