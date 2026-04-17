@@ -5,6 +5,42 @@ license: MIT
 compatibility: opencode
 ---
 
+## Live system location
+
+- **NAS host**: 192.168.68.106
+- **HA config path on NAS**: `\\192.168.68.106\Public\HomeAssistantConfig\` (SMB)
+- **HA web UI**: http://192.168.68.106:8123
+- **Credentials**: stored locally at `C:\Users\oance\.config\opencode\local\nas_access.md` — never commit
+
+## Accessing the NAS in an OpenCode session
+
+Always mount the SMB share before reading/writing config files. Credentials are in `local/nas_access.md`.
+
+```powershell
+# Mount (get password from C:\Users\oance\.config\opencode\local\nas_access.md)
+$cred = New-Object System.Management.Automation.PSCredential(
+    "MCP",
+    (ConvertTo-SecureString "<password>" -AsPlainText -Force)
+)
+New-PSDrive -Name Z -PSProvider FileSystem -Root "\\192.168.68.106\Public" -Credential $cred -Persist
+# HA config now at Z:\HomeAssistantConfig\
+
+# Unmount when done
+Remove-PSDrive Z
+```
+
+### Backup before any changes
+```powershell
+# Script saved at: C:\Users\oance\AppData\Local\Temp\nas_backup.ps1
+powershell -ExecutionPolicy Bypass -File "C:\Users\oance\AppData\Local\Temp\nas_backup.ps1"
+# Creates: Z:\HomeAssistantConfig_backup_<yyyyMMdd_HHmmss>\
+```
+
+### MCP server (for NAS system queries, not file editing)
+- URL and token in `C:\Users\oance\.config\opencode\opencode.json`
+- Reusable call script: `C:\Users\oance\AppData\Local\Temp\mcp_list_files.ps1`
+- **Note**: MCP `list_files` times out on large shares — use SMB mount instead for file access
+
 ## Architecture
 
 ```
@@ -15,15 +51,17 @@ QNAP NAS (Container Station)
    │
    └── Docker: homeassistant (host network mode)
             │
-            ├── Philips Hue Bridge  (local LAN)
-            ├── Govee devices       (local LAN)
-            ├── IKEA DIRIGERA       (local LAN)
-            ├── VELUX               (cloud)
-            ├── Samsung SmartThings (cloud)
-            ├── LG ThinQ            (cloud)
-            ├── Vivax AC            (Tuya local / SmartIR fallback)
-            ├── Konfortvent         (already integrated)
-            └── Google Home         (manual OAuth — bidirectional)
+            ├── Philips Hue Bridge  (local LAN)   ✅ working
+            ├── Komfovent HRV       (Modbus)       ✅ working
+            ├── Miele Dishwasher    (cloud)         ⚠️ token expired
+            ├── Google Cast         (local)         ✅ working
+            ├── Govee devices       (local LAN)     ❌ not set up
+            ├── IKEA DIRIGERA       (local LAN)     ❌ not set up
+            ├── VELUX               (cloud)         ❌ not set up
+            ├── Samsung SmartThings (cloud)         ❌ not set up
+            ├── LG ThinQ            (cloud)         ❌ not set up
+            ├── Vivax AC            (Tuya local)    ❌ not set up
+            └── Google Home         (manual OAuth)  ❌ not set up
 ```
 
 ## Goals
@@ -53,7 +91,7 @@ QNAP NAS (Container Station)
 ### Other
 | Device | Brand | Integration |
 |--------|-------|-------------|
-| Konfortvent HRV | Konfortvent | Already integrated |
+| Komfovent HRV | Komfovent | Custom component (Modbus) — already integrated ✅ |
 | VELUX blinds | VELUX | VELUX cloud (`velux` HACS) |
 | Google Nest/Home | Google | Manual Google Assistant OAuth |
 
@@ -227,13 +265,18 @@ google_assistant:
 
 **Step 4:** Google Home app → Add device → Works with Google → link with HA credentials.
 
-### 9. Konfortvent (Already Integrated)
+### 9. Komfovent (Already Integrated)
 
-No setup needed. Entities available:
-- `fan.konfortvent` — fan speed
-- `sensor.konfortvent_temperature_supply` / `_extract`
-- `sensor.konfortvent_humidity`
-- `select.konfortvent_mode` — normal / boost / eco / away
+No setup needed. Custom component `komfovent` installed via HACS. Modbus at 192.168.68.101:502.
+
+Real entity IDs (verified from running system):
+- `climate.komfovent` — main climate entity
+- `select.komfovent_current_mode` — normal / boost / away (verify exact option labels in HA UI)
+- `select.komfovent_scheduler_mode`
+- `select.komfovent_temperature_control`
+- `select.komfovent_flow_control`
+- `select.komfovent_eco_heat_recovery`
+- Humidity/temperature sensors: check Developer Tools → States → filter `komfovent`
 
 ---
 
@@ -280,7 +323,7 @@ The dashboard has 6 views: Home, Lighting, Climate, Ventilation, Blinds, Setting
 - `light.living_room`, `light.bedroom`, `light.kitchen` — light groups
 - `climate.samsung_ac`, `climate.lg_ac`, `climate.vivax_ac` — AC entities
 - `cover.velux_living_room`, `cover.velux_bedroom`, etc. — VELUX covers
-- `fan.konfortvent`, `sensor.konfortvent_*`, `select.konfortvent_mode`
+- `climate.komfovent`, `select.komfovent_current_mode`, `sensor.komfovent_*`
 - `sensor.outdoor_temperature` — outdoor temp sensor
 
 ### Apply dashboard
@@ -397,11 +440,11 @@ views:
                 - color: white
 
       - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.konfortvent_temperature_supply') }}°C supply air"
-        secondary: "Konfortvent — {{ states('select.konfortvent_mode') }} mode"
+        primary: "{{ states('sensor.komfovent_temperature_supply') }}°C supply air"
+        secondary: "Komfovent — {{ states('select.komfovent_current_mode') }} mode"
         icon: mdi:air-filter
         icon_color: >
-          {% if is_state('fan.konfortvent', 'on') %}blue{% else %}grey{% endif %}
+          {% if not is_state('climate.komfovent', 'off') %}blue{% else %}grey{% endif %}
         tap_action:
           action: navigate
           navigation_path: /lovelace/ventilation
@@ -550,29 +593,20 @@ views:
     icon: mdi:air-filter
     cards:
       - type: custom:mushroom-title-card
-        title: Konfortvent HRV
+        title: Komfovent HRV
         subtitle: Heat Recovery Ventilation
-      - type: custom:mushroom-fan-card
-        entity: fan.konfortvent
-        name: Konfortvent
-        show_percentage_control: true
-        icon_animation: true
+      - type: custom:mushroom-climate-card
+        entity: climate.komfovent
+        name: Komfovent
+        hvac_modes:
+          - auto
+          - fan_only
+          - "off"
+        show_temperature_control: true
       - type: grid
         columns: 4
         square: false
         cards:
-          - type: custom:button-card
-            name: Eco
-            icon: mdi:leaf
-            tap_action:
-              action: call-service
-              service: select.select_option
-              service_data:
-                entity_id: select.konfortvent_mode
-                option: eco
-            styles:
-              card:
-                - border-radius: 12px
           - type: custom:button-card
             name: Normal
             icon: mdi:fan
@@ -580,7 +614,7 @@ views:
               action: call-service
               service: select.select_option
               service_data:
-                entity_id: select.konfortvent_mode
+                entity_id: select.komfovent_current_mode
                 option: normal
             styles:
               card:
@@ -592,7 +626,7 @@ views:
               action: call-service
               service: select.select_option
               service_data:
-                entity_id: select.konfortvent_mode
+                entity_id: select.komfovent_current_mode
                 option: boost
             styles:
               card:
@@ -604,7 +638,7 @@ views:
               action: call-service
               service: select.select_option
               service_data:
-                entity_id: select.konfortvent_mode
+                entity_id: select.komfovent_current_mode
                 option: away
             styles:
               card:
@@ -612,26 +646,26 @@ views:
       - type: horizontal-stack
         cards:
           - type: custom:mushroom-entity-card
-            entity: sensor.konfortvent_temperature_supply
+            entity: sensor.komfovent_temperature_supply    # verify entity name
             name: Supply
             icon: mdi:thermometer-chevron-up
             icon_color: orange
           - type: custom:mushroom-entity-card
-            entity: sensor.konfortvent_temperature_extract
+            entity: sensor.komfovent_temperature_extract   # verify entity name
             name: Extract
             icon: mdi:thermometer-chevron-down
             icon_color: blue
           - type: custom:mushroom-entity-card
-            entity: sensor.konfortvent_humidity
+            entity: sensor.komfovent_humidity_efficiency   # verify entity name
             name: Humidity
             icon: mdi:water-percent
             icon_color: teal
       - type: custom:mini-graph-card
         entities:
-          - entity: sensor.konfortvent_temperature_supply
+          - entity: sensor.komfovent_temperature_supply
             name: Supply air
             color: "#f6a623"
-          - entity: sensor.konfortvent_temperature_extract
+          - entity: sensor.komfovent_temperature_extract
             name: Extract air
             color: "#4a90d9"
         hours_to_show: 12
@@ -730,7 +764,7 @@ views:
             name: AC Schedule
             icon: mdi:clock-outline
           - type: custom:mushroom-entity-card
-            entity: automation.konfortvent_auto_mode
+            entity: automation.konfortvent_away_mode
             name: Ventilation Auto
             icon: mdi:air-filter
           - type: custom:mushroom-entity-card
@@ -776,8 +810,8 @@ group:
   all_people:
     name: All People
     entities:
-      - person.your_name
-      - person.partner_name
+      - person.cristian_oancea
+      - person.georgiana
 ```
 
 ---
@@ -920,34 +954,34 @@ mode: single
 
 ---
 
-# 7. Konfortvent boost on high humidity
+# 7. Komfovent boost on high humidity
 alias: konfortvent_boost_on_humidity
 trigger:
   - platform: numeric_state
-    entity_id: sensor.konfortvent_humidity
+    entity_id: sensor.komfovent_humidity_efficiency   # verify exact entity name
     above: 65
 action:
   - service: select.select_option
     target:
-      entity_id: select.konfortvent_mode
+      entity_id: select.komfovent_current_mode
     data:
       option: boost
   - wait_for_trigger:
       - platform: numeric_state
-        entity_id: sensor.konfortvent_humidity
+        entity_id: sensor.komfovent_humidity_efficiency
         below: 55
     timeout:
       minutes: 30
   - service: select.select_option
     target:
-      entity_id: select.konfortvent_mode
+      entity_id: select.komfovent_current_mode
     data:
       option: normal
 mode: single
 
 ---
 
-# 8. Konfortvent away when everyone leaves
+# 8. Komfovent away when everyone leaves
 alias: konfortvent_away_mode
 trigger:
   - platform: state
@@ -956,7 +990,7 @@ trigger:
 action:
   - service: select.select_option
     target:
-      entity_id: select.konfortvent_mode
+      entity_id: select.komfovent_current_mode
     data:
       option: away
 mode: single
@@ -971,7 +1005,7 @@ trigger:
 action:
   - service: select.select_option
     target:
-      entity_id: select.konfortvent_mode
+      entity_id: select.komfovent_current_mode
     data:
       option: normal
 mode: single
