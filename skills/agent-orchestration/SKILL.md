@@ -249,20 +249,17 @@ No agent may:
 
 After every session that produces new discoveries, fixes, or lessons, the Orchestrator **must** trigger a final `SKILL_Updater` task before closing:
 
-**Rule:** Any time a bug is fixed, a workaround discovered, an entity ID confirmed, an assumption proven wrong, or a new pattern established — update the relevant project `SKILL.md` immediately. Do not defer.
+**Rule:** Any time a bug is fixed, a workaround discovered, an assumption proven wrong, or a new pattern established — update the relevant `SKILL.md` immediately. Do not defer.
 
 ### What to update
-- Add discovered entity IDs with exact names and units to the relevant section
-- Correct any wrong assumptions (e.g. "total energy" mislabeled as "daily power")
-- Add new "lesson learned" entries with root cause and fix
-- Remove completed items from "Next steps"
-- Update file structure comments to reflect current state of files
+- Add new patterns, conventions, or constraints discovered during the session
+- Correct wrong assumptions with root cause and fix
+- Remove stale or resolved items
 - Keep sections compact — rewrite/merge stale entries rather than appending indefinitely
 
 ### When to rewrite vs. append
-- **Append** when adding genuinely new information (new entity ID, new integration)
+- **Append** when adding genuinely new information
 - **Rewrite** when an existing entry is wrong, stale, or has grown too verbose
-- **Rewrite the whole section** if it has drifted from reality (e.g. entity IDs that were "placeholder" are now real)
 
 ### Commit discipline
 - Commit SKILL.md changes in a dedicated commit after the fix/discovery is confirmed working
