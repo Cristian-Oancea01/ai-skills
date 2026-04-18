@@ -6,19 +6,9 @@ A collection of reusable [OpenCode](https://opencode.ai) skills and global rules
 
 ```
 ai-skills/
-├── AGENTS.md                         ← global OpenCode rules (copy to ~/.config/opencode/)
 └── skills/
     ├── coding-standards/SKILL.md     ← coding style, testing, and comment guidelines
     └── agent-orchestration/SKILL.md  ← multi-agent DAG orchestration system
-```
-
-## AGENTS.md
-
-[`AGENTS.md`](AGENTS.md) is the global rules file read by OpenCode at the start of every session. It controls which skills are loaded by default and when. Copy it to your OpenCode global config directory:
-
-```
-~/.config/opencode/AGENTS.md   # macOS / Linux
-%APPDATA%\opencode\AGENTS.md   # Windows
 ```
 
 ## What are skills?
