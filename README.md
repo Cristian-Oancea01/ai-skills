@@ -12,7 +12,6 @@ Skills are `SKILL.md` files loaded into an OpenCode session to provide domain-sp
 |---|---|
 | [`coding-standards`](skills/coding-standards/SKILL.md) | Coding style, testing, and comment guidelines for clean, minimal, production-quality code |
 | [`agent-orchestration`](skills/agent-orchestration/SKILL.md) | Multi-agent DAG orchestration system with specialist roles for software development tasks |
-| [`homeassistant-setup`](skills/homeassistant-setup/SKILL.md) | Home Assistant on QNAP NAS — Docker, integrations, Lovelace dashboard, automations |
 
 ## Usage
 
