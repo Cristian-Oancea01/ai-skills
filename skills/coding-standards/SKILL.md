@@ -57,6 +57,11 @@ function sum(a, b) {
 - Keep all skill definitions as short as possible: remove redundancy, merge overlapping points.
 - Prefer concise, high-signal rules over verbose explanations.
 
+## Commit hygiene — sensitive data
+- Never commit personal names (people, rooms, devices), non-English labels, or real credentials/entity IDs.
+- Use generic English placeholders in all committed files; store real values in a private file outside the repo (e.g. `AGENTS.local.md` on the NAS, or a local secrets file).
+- Before every commit: scan changed files for personal names, non-English text, passwords, IPs, and real entity IDs specific to the user's environment.
+
 ## Rule of thumb
 - Smallest correct change.
 - No extra code, no extra comments.
