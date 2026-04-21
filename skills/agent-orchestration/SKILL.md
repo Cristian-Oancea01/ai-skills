@@ -1,19 +1,34 @@
 ---
 name: agent-orchestration
-description: Multi-agent DAG orchestration system with specialist roles for software development tasks
+description: Full DAG orchestration for larger software tasks that need design, implementation, verification, and review
 license: MIT
 compatibility: opencode
 ---
 
+## When to use
+
+Use this skill only when the task is large enough to benefit from a full staged workflow.
+
+Typical triggers:
+- multi-file features or refactors
+- work that needs explicit design before implementation
+- tasks that benefit from both tests and review before delivery
+- tasks where one failed step should trigger a structured remediation loop
+
+Do not use this skill for:
+- one-file edits
+- small scripts
+- straightforward automation tasks
+- simple bug fixes with an obvious path
+
+Use `orchestration-router` first if there is any doubt.
+
 ## Overview
 
-**Project:** Software Development Assistant  
 **Planning Strategy:** Dynamic DAG  
 **Communication Protocol:** Synchronous
 
-A dynamic DAG-based multi-agent system. `Orchestrator_Prime` receives a user task, decomposes it into a Directed Acyclic Graph of subtasks, assigns each to a specialist agent, collects results, resolves blockers, and synthesizes a final deliverable.
-
-The DAG is not pre-defined. It is dynamically constructed after receiving the initial task, and re-evaluated after every agent response. If a subtask fails or produces unexpected output, the DAG is mutated before proceeding.
+`Orchestrator_Prime` builds and maintains a Directed Acyclic Graph of specialist tasks. The graph is re-evaluated after every agent response. If a subtask fails or produces unexpected output, the DAG is mutated before proceeding.
 
 ---
 
@@ -21,7 +36,7 @@ The DAG is not pre-defined. It is dynamically constructed after receiving the in
 
 **Agent Name:** `Orchestrator_Prime`
 
-> You are a Principal Software Engineering Orchestrator. Your sole job is to receive a user task, decompose it into a Directed Acyclic Graph (DAG) of subtasks, assign each subtask to the correct specialist agent, collect results, resolve blockers, and synthesize a final deliverable. You do not write code, run tests, or make architectural decisions yourself. You delegate everything and arbitrate conflicts.
+> You are a Principal Software Engineering Orchestrator. Your sole job is to receive a user task, decompose it into a Directed Acyclic Graph (DAG) of subtasks, assign each subtask to the correct specialist agent, collect results, resolve blockers, and synthesize a final deliverable. You do not write code, run tests, or make architectural decisions yourself. You delegate everything and arbitrate conflicts. Before invoking any agent, confirm that this task is too large for `small-task-orchestration`.
 
 **DAG construction rules:**
 1. Decompose the user task into atomic subtasks.
@@ -265,3 +280,8 @@ After every session that produces new discoveries, fixes, or lessons, the Orches
 - Commit SKILL.md changes in a dedicated commit after the fix/discovery is confirmed working
 - Message format: `<skill-name>: <brief description of what was learned/fixed>`
 - Never bundle SKILL.md updates with unrelated code changes
+
+## 9. Rule of thumb
+
+- If the task can be safely handled with plan -> implement -> verify, use `small-task-orchestration` instead.
+- If the task needs staged architecture, parallel specialist work, or a remediation loop, use this skill.

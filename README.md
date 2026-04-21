@@ -6,9 +6,14 @@ A collection of reusable [OpenCode](https://opencode.ai) skills and global rules
 
 ```
 ai-skills/
+├── AGENTS.md
 └── skills/
-    ├── coding-standards/SKILL.md     ← coding style, testing, and comment guidelines
-    └── agent-orchestration/SKILL.md  ← multi-agent DAG orchestration system
+    ├── agent-orchestration/SKILL.md      ← full DAG orchestration for larger work
+    ├── always-plan/SKILL.md              ← planning-first rule before implementation
+    ├── coding-standards/SKILL.md         ← coding style, testing, and comment guidelines
+    ├── orchestration-router/SKILL.md     ← decides whether to orchestrate and which mode
+    ├── project-bootstrap/SKILL.md        ← AGENTS.md-first project workflow
+    └── small-task-orchestration/SKILL.md ← lightweight orchestration for small tasks
 ```
 
 ## What are skills?
@@ -19,8 +24,12 @@ Skills are `SKILL.md` files loaded into an OpenCode session to provide domain-sp
 
 | Skill | Description |
 |---|---|
+| [`always-plan`](skills/always-plan/SKILL.md) | Mandatory planning rule that requires a short implementation plan before non-trivial work |
+| [`orchestration-router`](skills/orchestration-router/SKILL.md) | Mandatory routing skill that decides whether to use no orchestration, small-task orchestration, or full agent orchestration |
+| [`small-task-orchestration`](skills/small-task-orchestration/SKILL.md) | Lightweight orchestration for small tasks, scripts, and straightforward code changes |
 | [`coding-standards`](skills/coding-standards/SKILL.md) | Coding style, testing, and comment guidelines for clean, minimal, production-quality code |
-| [`agent-orchestration`](skills/agent-orchestration/SKILL.md) | Multi-agent DAG orchestration system with specialist roles for software development tasks |
+| [`agent-orchestration`](skills/agent-orchestration/SKILL.md) | Full DAG orchestration for larger software tasks that need design, implementation, verification, and review |
+| [`project-bootstrap`](skills/project-bootstrap/SKILL.md) | Require `AGENTS.md` lookup first for project work |
 
 ## Agent Orchestration — DAG Overview
 
@@ -71,8 +80,11 @@ OpenCode will automatically discover all skills in `skills/*/SKILL.md`.
 ### Reference skills from AGENTS.md
 
 ```md
+- `always-plan` — always load before non-trivial implementation work
+- `orchestration-router` — mandatory before any orchestration choice
+- `small-task-orchestration` — load for small tasks and scripts
 - `coding-standards` — always load for any coding task
-- `agent-orchestration` — load for complex multi-step tasks
+- `agent-orchestration` — load for larger multi-step tasks
 ```
 
 ### Project-local skills
