@@ -1,6 +1,6 @@
 ---
 name: orchestration-router
-description: Mandatory routing skill that decides whether to use no orchestration, small-task orchestration, or full agent orchestration
+description: Mandatory routing skill that decides whether to use no orchestration, small, medium, or enterprise orchestration
 license: MIT
 compatibility: opencode
 ---
@@ -13,6 +13,7 @@ Its job is to classify the task into exactly one of these modes:
 - `none`
 - `small-task-orchestration`
 - `agent-orchestration`
+- `enterprise-agent-orchestration`
 
 ## Decision rubric
 
@@ -34,13 +35,20 @@ Choose `agent-orchestration` when:
 - the task may branch into parallel or partially independent work
 - failures likely require a structured remediation loop
 
+Choose `enterprise-agent-orchestration` when:
+- the task is enterprise-scale or program-like
+- explicit specialist role boundaries are important
+- auditability and state ownership matter
+- the workflow benefits from strict staged outputs and formal remediation
+- you want the most deterministic orchestration mode, even with extra overhead
+
 ## Output format
 
 Return:
 
 ```json
 {
-  "mode": "none | small-task-orchestration | agent-orchestration",
+  "mode": "none | small-task-orchestration | agent-orchestration | enterprise-agent-orchestration",
   "reason": "short justification",
   "signals": ["signal 1", "signal 2"]
 }
@@ -51,5 +59,6 @@ Return:
 - If `mode` is `none`, proceed without orchestration.
 - If `mode` is `small-task-orchestration`, load that skill and follow it.
 - If `mode` is `agent-orchestration`, load that skill and follow it.
+- If `mode` is `enterprise-agent-orchestration`, load that skill and follow it.
 
-Do not load both orchestration skills for the same task.
+Do not load multiple orchestration skills for the same task.

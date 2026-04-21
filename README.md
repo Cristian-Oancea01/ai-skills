@@ -8,9 +8,10 @@ A collection of reusable [OpenCode](https://opencode.ai) skills and global rules
 ai-skills/
 ├── AGENTS.md
 └── skills/
-    ├── agent-orchestration/SKILL.md      ← full DAG orchestration for larger work
+    ├── agent-orchestration/SKILL.md             ← medium orchestration for larger work
     ├── always-plan/SKILL.md              ← planning-first rule before implementation
     ├── coding-standards/SKILL.md         ← coding style, testing, and comment guidelines
+    ├── enterprise-agent-orchestration/SKILL.md ← large enterprise orchestration
     ├── orchestration-router/SKILL.md     ← decides whether to orchestrate and which mode
     ├── project-bootstrap/SKILL.md        ← AGENTS.md-first project workflow
     └── small-task-orchestration/SKILL.md ← lightweight orchestration for small tasks
@@ -25,13 +26,20 @@ Skills are `SKILL.md` files loaded into an OpenCode session to provide domain-sp
 | Skill | Description |
 |---|---|
 | [`always-plan`](skills/always-plan/SKILL.md) | Mandatory planning rule that requires a short implementation plan before non-trivial work |
-| [`orchestration-router`](skills/orchestration-router/SKILL.md) | Mandatory routing skill that decides whether to use no orchestration, small-task orchestration, or full agent orchestration |
+| [`orchestration-router`](skills/orchestration-router/SKILL.md) | Mandatory routing skill that decides whether to use no orchestration, small, medium, or enterprise orchestration |
 | [`small-task-orchestration`](skills/small-task-orchestration/SKILL.md) | Lightweight orchestration for small tasks, scripts, and straightforward code changes |
 | [`coding-standards`](skills/coding-standards/SKILL.md) | Coding style, testing, and comment guidelines for clean, minimal, production-quality code |
-| [`agent-orchestration`](skills/agent-orchestration/SKILL.md) | Full DAG orchestration for larger software tasks that need separate design, implementation, verification, and review stages |
+| [`agent-orchestration`](skills/agent-orchestration/SKILL.md) | Medium orchestration for larger software tasks that need separate design, implementation, verification, and review stages |
+| [`enterprise-agent-orchestration`](skills/enterprise-agent-orchestration/SKILL.md) | Heavyweight orchestration for enterprise-scale projects with explicit roles, state ownership, and remediation cycles |
 | [`project-bootstrap`](skills/project-bootstrap/SKILL.md) | Require `AGENTS.md` lookup first for project work |
 
-## Agent Orchestration — DAG Overview
+## Orchestration Tiers
+
+- Small: `small-task-orchestration`
+- Medium: `agent-orchestration`
+- Large: `enterprise-agent-orchestration`
+
+## Medium Orchestration — DAG Overview
 
 ```mermaid
 flowchart TD
@@ -49,7 +57,7 @@ flowchart TD
     C -->|issues| O
 ```
 
-The full orchestration path is reserved for larger work. Smaller tasks should use `small-task-orchestration` instead.
+Use the medium path for larger day-to-day work. Use the enterprise path when you want stronger role boundaries and stricter orchestration.
 
 ## Usage
 
@@ -80,7 +88,8 @@ OpenCode will automatically discover all skills in `skills/*/SKILL.md`.
 - `orchestration-router` — mandatory before any orchestration choice
 - `small-task-orchestration` — load for small tasks and scripts
 - `coding-standards` — always load for any coding task
-- `agent-orchestration` — load for larger multi-step tasks
+- `agent-orchestration` — load for medium multi-step tasks
+- `enterprise-agent-orchestration` — load for enterprise-scale or highly structured tasks
 ```
 
 ### Project-local skills

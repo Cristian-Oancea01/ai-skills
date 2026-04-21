@@ -23,15 +23,17 @@ ai-skills/
 │       └── opencode.yml           # GitHub Action entrypoint for OpenCode
 ├── skills/
 │   ├── agent-orchestration/
-│   │   └── SKILL.md               # Full DAG orchestration for larger multi-step work
+│   │   └── SKILL.md               # Medium orchestration for larger multi-step work
 │   ├── always-plan/
 │   │   └── SKILL.md               # Planning-first rule before non-trivial implementation
 │   ├── coding-standards/
 │   │   └── SKILL.md               # Minimal coding, testing, and commit hygiene rules
+│   ├── enterprise-agent-orchestration/
+│   │   └── SKILL.md               # Heavyweight orchestration for enterprise-scale work
 │   ├── orchestration-router/
 │   │   └── SKILL.md               # Decides whether to use orchestration and which mode
-│   └── project-bootstrap/
-│       └── SKILL.md               # AGENTS.md-first workflow for projects
+│   ├── project-bootstrap/
+│   │   └── SKILL.md               # AGENTS.md-first workflow for projects
 │   └── small-task-orchestration/
 │       └── SKILL.md               # Lightweight orchestration for small tasks and scripts
 ├── AGENTS.md                      # This file
@@ -47,9 +49,10 @@ ai-skills/
 |---|---|---|
 | `always-plan` | `skills/always-plan/SKILL.md` | Require a short plan before non-trivial implementation work |
 | `coding-standards` | `skills/coding-standards/SKILL.md` | Smallest-correct-change coding rules, testing, and sensitive-data hygiene |
-| `orchestration-router` | `skills/orchestration-router/SKILL.md` | Decide whether to use no orchestration, small-task orchestration, or full orchestration |
+| `enterprise-agent-orchestration` | `skills/enterprise-agent-orchestration/SKILL.md` | Heavyweight orchestration for enterprise-scale work with explicit role and state boundaries |
+| `orchestration-router` | `skills/orchestration-router/SKILL.md` | Decide whether to use no orchestration, small, medium, or enterprise orchestration |
 | `project-bootstrap` | `skills/project-bootstrap/SKILL.md` | Require `AGENTS.md` lookup first for project work |
-| `agent-orchestration` | `skills/agent-orchestration/SKILL.md` | Full multi-agent DAG for larger software tasks |
+| `agent-orchestration` | `skills/agent-orchestration/SKILL.md` | Medium orchestration for larger software tasks |
 | `small-task-orchestration` | `skills/small-task-orchestration/SKILL.md` | Lightweight plan-explore-implement-verify flow for small tasks and scripts |
 
 ---
