@@ -28,32 +28,28 @@ Skills are `SKILL.md` files loaded into an OpenCode session to provide domain-sp
 | [`orchestration-router`](skills/orchestration-router/SKILL.md) | Mandatory routing skill that decides whether to use no orchestration, small-task orchestration, or full agent orchestration |
 | [`small-task-orchestration`](skills/small-task-orchestration/SKILL.md) | Lightweight orchestration for small tasks, scripts, and straightforward code changes |
 | [`coding-standards`](skills/coding-standards/SKILL.md) | Coding style, testing, and comment guidelines for clean, minimal, production-quality code |
-| [`agent-orchestration`](skills/agent-orchestration/SKILL.md) | Full DAG orchestration for larger software tasks that need design, implementation, verification, and review |
+| [`agent-orchestration`](skills/agent-orchestration/SKILL.md) | Full DAG orchestration for larger software tasks that need separate design, implementation, verification, and review stages |
 | [`project-bootstrap`](skills/project-bootstrap/SKILL.md) | Require `AGENTS.md` lookup first for project work |
 
 ## Agent Orchestration — DAG Overview
 
 ```mermaid
 flowchart TD
-    U([User Task]) --> O[Orchestrator_Prime\nbuild DAG]
-
-    O --> RA[Requirement_Analyst]
-    RA --> CE[Codebase_Explorer]
-    CE --> SA[Solution_Architect]
-    SA --> CI[Code_Implementer]
-
-    CI --> TE[Test_Engineer]
-    CI --> CR[Code_Reviewer]
-
-    TE --> CA[Critic_Agent]
-    CR --> CA
-
-    CA -->|pass| D([Deliver])
-    CA -->|fail, cycle ≤ 3| O
-    CA -->|fail, cycle > 3| ESC([Escalate to User])
+    U([User Task]) --> O[Orchestrator]
+    O --> R[Requirements]
+    O --> E[Codebase Context]
+    R --> D[Design]
+    E --> D
+    D --> I[Implement]
+    I --> T[Verify]
+    I --> V[Review]
+    T --> C[Consolidate]
+    V --> C
+    C -->|clean| X([Deliver])
+    C -->|issues| O
 ```
 
-Each node is an independent specialist agent. All data flows through a shared Global State object — agents never call each other directly.
+The full orchestration path is reserved for larger work. Smaller tasks should use `small-task-orchestration` instead.
 
 ## Usage
 
