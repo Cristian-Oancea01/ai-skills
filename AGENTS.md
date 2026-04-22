@@ -34,6 +34,14 @@ ai-skills/
 │   │   └── SKILL.md               # Decides whether to use orchestration and which mode
 │   ├── project-bootstrap/
 │   │   └── SKILL.md               # AGENTS.md-first workflow for projects
+│   ├── research-agent/
+│   │   ├── SKILL.md               # Evidence-first workflow for market and opportunity research
+│   │   ├── examples/
+│   │   │   └── example-opportunity-report.md
+│   │   └── templates/
+│   │       ├── opportunity-report.md
+│   │       ├── research-brief.md
+│   │       └── source-log.md
 │   └── small-task-orchestration/
 │       └── SKILL.md               # Lightweight orchestration for small tasks and scripts
 ├── AGENTS.md                      # This file
@@ -52,6 +60,7 @@ ai-skills/
 | `enterprise-agent-orchestration` | `skills/enterprise-agent-orchestration/SKILL.md` | Heavyweight orchestration for enterprise-scale work with explicit role and state boundaries |
 | `orchestration-router` | `skills/orchestration-router/SKILL.md` | Decide whether to use no orchestration, small, medium, or enterprise orchestration |
 | `project-bootstrap` | `skills/project-bootstrap/SKILL.md` | Require `AGENTS.md` lookup first for project work |
+| `research-agent` | `skills/research-agent/SKILL.md` | Evidence-first workflow for market scans, competitor review, and opportunity research |
 | `agent-orchestration` | `skills/agent-orchestration/SKILL.md` | Medium orchestration for larger software tasks |
 | `small-task-orchestration` | `skills/small-task-orchestration/SKILL.md` | Lightweight plan-explore-implement-verify flow for small tasks and scripts |
 

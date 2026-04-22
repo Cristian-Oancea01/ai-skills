@@ -14,6 +14,13 @@ ai-skills/
     ├── enterprise-agent-orchestration/SKILL.md ← large enterprise orchestration
     ├── orchestration-router/SKILL.md     ← decides whether to orchestrate and which mode
     ├── project-bootstrap/SKILL.md        ← AGENTS.md-first project workflow
+    ├── research-agent/
+    │   ├── SKILL.md                      ← evidence-first market and opportunity research
+    │   ├── examples/example-opportunity-report.md
+    │   └── templates/
+    │       ├── opportunity-report.md
+    │       ├── research-brief.md
+    │       └── source-log.md
     └── small-task-orchestration/SKILL.md ← lightweight orchestration for small tasks
 ```
 
@@ -32,6 +39,24 @@ Skills are `SKILL.md` files loaded into an OpenCode session to provide domain-sp
 | [`agent-orchestration`](skills/agent-orchestration/SKILL.md) | Medium orchestration for larger software tasks that need separate design, implementation, verification, and review stages |
 | [`enterprise-agent-orchestration`](skills/enterprise-agent-orchestration/SKILL.md) | Heavyweight orchestration for enterprise-scale projects with explicit roles, state ownership, and remediation cycles |
 | [`project-bootstrap`](skills/project-bootstrap/SKILL.md) | Require `AGENTS.md` lookup first for project work |
+| [`research-agent`](skills/research-agent/SKILL.md) | Evidence-first workflow for market scans, competitor review, and decision-ready research docs |
+
+## Research Workflow
+
+```mermaid
+flowchart TD
+    U([User Task]) --> B[Research Brief]
+    B --> M[Market Scan]
+    B --> C[Customer-Problem Scan]
+    B --> K[Competitor Scan]
+    M --> S[Synthesis]
+    C --> S
+    K --> S
+    S --> R[Critique]
+    R --> D([Deliver])
+```
+
+Use `research-agent` when the task is about choosing a market, validating a business idea, comparing competitors, or producing structured research documentation.
 
 ## Orchestration Tiers
 
