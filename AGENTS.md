@@ -28,8 +28,14 @@ ai-skills/
 │   │   └── SKILL.md               # Planning-first rule before non-trivial implementation
 │   ├── coding-standards/
 │   │   └── SKILL.md               # Minimal coding, testing, and commit hygiene rules
+│   ├── coverage-increase/
+│   │   └── SKILL.md               # Minimal-risk workflow for improving automated test coverage
 │   ├── enterprise-agent-orchestration/
 │   │   └── SKILL.md               # Heavyweight orchestration for enterprise-scale work
+│   ├── frontend-ui-guide/
+│   │   └── SKILL.md               # Reuse-first frontend UI composition and review guidance
+│   ├── implementation-review/
+│   │   └── SKILL.md               # Findings-first review workflow for completed implementations
 │   ├── orchestration-router/
 │   │   └── SKILL.md               # Decides whether to use orchestration and which mode
 │   ├── project-bootstrap/
@@ -57,7 +63,10 @@ ai-skills/
 |---|---|---|
 | `always-plan` | `skills/always-plan/SKILL.md` | Require a short plan before non-trivial implementation work |
 | `coding-standards` | `skills/coding-standards/SKILL.md` | Smallest-correct-change coding rules, testing, and sensitive-data hygiene |
+| `coverage-increase` | `skills/coverage-increase/SKILL.md` | Improve automated test coverage in small, convention-matching batches |
 | `enterprise-agent-orchestration` | `skills/enterprise-agent-orchestration/SKILL.md` | Heavyweight orchestration for enterprise-scale work with explicit role and state boundaries |
+| `frontend-ui-guide` | `skills/frontend-ui-guide/SKILL.md` | Prefer existing frontend components, tokens, and patterns before creating new UI |
+| `implementation-review` | `skills/implementation-review/SKILL.md` | Findings-first review of completed implementations, focused on correctness and regressions |
 | `orchestration-router` | `skills/orchestration-router/SKILL.md` | Decide whether to use no orchestration, small, medium, or enterprise orchestration |
 | `project-bootstrap` | `skills/project-bootstrap/SKILL.md` | Require `AGENTS.md` lookup first for project work |
 | `research-agent` | `skills/research-agent/SKILL.md` | Evidence-first workflow for market scans, competitor review, and opportunity research |

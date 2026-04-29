@@ -37,14 +37,17 @@ flowchart TD
 ### 2. Explore Minimal Context
 - read only the files needed to implement safely
 - avoid broad exploration
+- read before editing; do not change files blindly
 
 ### 3. Implement
 - make the smallest correct change
 - avoid adding abstractions unless required
+- prefer existing project patterns over new structure
 
 ### 4. Verify
 - run the smallest meaningful verification
 - prefer targeted tests, lint, build, or command validation
+- if the first verification fails, fix the issue before broadening scope
 
 ## Rule of thumb
 

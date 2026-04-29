@@ -11,10 +11,14 @@ compatibility: opencode
 - Change only what is required for the task.
 - Avoid unnecessary abstractions and extra features.
 - Prefer readable code over clever code.
+- Read relevant files before editing them.
+- Preserve existing behavior unless the task explicitly changes it.
+- Reuse existing patterns and components before inventing new ones.
 
 ## Testing
 - Testing is mandatory for behavior changes.
 - Prefer TDD: write a failing test, implement the smallest fix, then refactor safely.
+- Start with the smallest meaningful test scope, then broaden only if needed.
 
 ## Comments
 - Do not add comments that restate obvious code.
@@ -28,6 +32,8 @@ compatibility: opencode
 - Validate the exact change without expanding scope.
 - Treat tests as mandatory for behavior changes.
 - Follow TDD by default: failing test first, then minimal implementation.
+- Prefer root-cause fixes over symptom patches.
+- Remove dead code and unused imports introduced by the change.
 
 ## Examples
 
