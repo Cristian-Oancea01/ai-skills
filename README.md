@@ -77,6 +77,89 @@ OpenCode supports manual model selection through config, startup flags, and `/mo
 
 Third-party plugins may add automatic routing, fallback, or context-based model switching. Recommendations in this repo should still make sense without any plugin, and plugin-specific automation should be treated as optional support for the same policy rather than the default behavior.
 
+## Optional Plugins
+
+These skills work without plugins. In a default OpenCode setup:
+- pick models manually through config, startup flags, or `/models`
+- recommend a model change explicitly when the current model is no longer a good fit
+
+If you want automatic support for the same policy, these plugins are a practical pair:
+- `opencode-auto-fallback` — automatic model switching for provider errors, rate limits, and some context-related failures
+- `opencode-model-router` — automatic tier-based routing across cheap, normal, and heavy models
+
+### Install plugins
+
+Use the OpenCode plugin installer:
+
+```bash
+# Global install
+opencode plugin opencode-auto-fallback -g
+opencode plugin opencode-model-router -g
+```
+
+Or add them manually to `~/.config/opencode/opencode.json`:
+
+```json
+{
+  "plugin": [
+    "opencode-auto-fallback",
+    "opencode-model-router"
+  ]
+}
+```
+
+### Configure `opencode-auto-fallback`
+
+Create `~/.config/opencode/fallback.json` and enable it:
+
+```json
+{
+  "enabled": true,
+  "defaultFallback": [
+    "cheap-backup-model",
+    "stronger-backup-model"
+  ],
+  "cooldownMs": 60000,
+  "maxRetries": 2
+}
+```
+
+Usage notes:
+- use it for resilience first: rate limits, provider failures, transient API issues
+- keep the fallback chain aligned with the same cheapest-capable policy from these skills
+- prefer a cheap backup before a premium one unless the task truly needs the premium model
+
+### Configure `opencode-model-router`
+
+Create `~/.config/opencode/tiers.json` with a preset that matches your available providers and subscriptions:
+
+```json
+{
+  "activePreset": "my-preset",
+  "activeMode": "budget",
+  "presets": {
+    "my-preset": {
+      "fast": { "model": "cheap-model", "costRatio": 1 },
+      "medium": { "model": "default-coding-model", "costRatio": 5 },
+      "heavy": { "model": "strong-debug-model", "costRatio": 20 }
+    }
+  }
+}
+```
+
+Usage notes:
+- `fast` should be your cheapest reliable read/search model
+- `medium` should be your normal implementation model
+- `heavy` should be reserved for debugging, architecture, and risky multi-file analysis
+- use a budget-oriented mode by default if credit savings matter more than maximum quality
+
+### Recommended behavior with or without plugins
+
+- Without plugins: recommend model changes explicitly and continue with the current model when the work is still safe
+- With `opencode-auto-fallback`: let failures and rate limits switch models automatically, but keep the fallback order cost-aware
+- With `opencode-model-router`: let routing automate model choice, but keep the tier mapping aligned with the same skill policy
+- With both plugins: use the router for normal task selection and the fallback plugin for failure recovery
+
 ## Repository structure
 
 ```text
