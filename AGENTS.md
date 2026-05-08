@@ -36,8 +36,12 @@ ai-skills/
 │   │   └── SKILL.md               # Reuse-first frontend UI composition and review guidance
 │   ├── implementation-review/
 │   │   └── SKILL.md               # Findings-first review workflow for completed implementations
+│   ├── model-selection/
+│   │   └── SKILL.md               # Cost-aware model routing with optional free-model opt-out
 │   ├── orchestration-router/
 │   │   └── SKILL.md               # Decides whether to use orchestration and which mode
+│   ├── prompt-efficiency/
+│   │   └── SKILL.md               # Prompt and context shaping for lower token and cache usage
 │   ├── project-bootstrap/
 │   │   └── SKILL.md               # AGENTS.md-first workflow for projects
 │   ├── research-agent/
@@ -67,7 +71,9 @@ ai-skills/
 | `enterprise-agent-orchestration` | `skills/enterprise-agent-orchestration/SKILL.md` | Heavyweight orchestration for enterprise-scale work with explicit role and state boundaries |
 | `frontend-ui-guide` | `skills/frontend-ui-guide/SKILL.md` | Prefer existing frontend components, tokens, and patterns before creating new UI |
 | `implementation-review` | `skills/implementation-review/SKILL.md` | Findings-first review of completed implementations, focused on correctness and regressions |
+| `model-selection` | `skills/model-selection/SKILL.md` | Route tasks to cheaper capable models first, with an explicit opt-out for free-model usage |
 | `orchestration-router` | `skills/orchestration-router/SKILL.md` | Decide whether to use no orchestration, small, medium, or enterprise orchestration |
+| `prompt-efficiency` | `skills/prompt-efficiency/SKILL.md` | Reduce token and cache usage by tightening prompts, context, and tool instructions |
 | `project-bootstrap` | `skills/project-bootstrap/SKILL.md` | Require `AGENTS.md` lookup first for project work |
 | `research-agent` | `skills/research-agent/SKILL.md` | Evidence-first workflow for market scans, competitor review, and opportunity research |
 | `agent-orchestration` | `skills/agent-orchestration/SKILL.md` | Medium orchestration for larger software tasks |
