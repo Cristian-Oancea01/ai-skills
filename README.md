@@ -71,7 +71,11 @@ Use `structured-handoff` only when explicit JSON or graph structure will make a 
 
 `model-selection` is generic and does not assume any specific provider.
 
-If the user says to avoid free models, the skill instructs the agent to disable free-model routing for the session and fall back to paid cheap models first.
+If the user says to avoid free models, the skill instructs the agent to avoid recommending them for the session and prefer lower-cost paid models when model choice is available.
+
+OpenCode supports manual model selection through config, startup flags, and `/models`. These skills should treat model choice as user- or runtime-controlled unless the current environment explicitly supports switching.
+
+Third-party plugins may add automatic routing, fallback, or context-based model switching. Recommendations in this repo should still make sense without any plugin, and plugin-specific automation should be treated as optional support for the same policy rather than the default behavior.
 
 ## Repository structure
 

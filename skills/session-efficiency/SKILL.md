@@ -36,8 +36,11 @@ Preserve useful context and avoid paying for stale or duplicated context.
 
 ## Model interaction
 
-- Avoid switching models mid-task unless there is a clear reason
-- If a premium model was used for diagnosis, summarize the decision and continue routine work on a cheaper model when practical
+- Avoid unnecessary model changes unless there is a clear reason
+- In default OpenCode setups, treat model choice as manual or config-driven
+- If the user or environment can switch models, prefer stronger models only for the parts that need them
+- If a plugin adds automatic routing or fallback, keep its behavior aligned with the same escalation rules instead of creating a separate policy
+- If the current environment cannot switch models directly, tell the user what to change and why
 
 ## Rule of thumb
 

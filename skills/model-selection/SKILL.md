@@ -7,14 +7,21 @@ compatibility: opencode
 
 ## Goal
 
-Choose the cheapest model that can plausibly succeed.
+Choose or recommend the cheapest model that can plausibly succeed.
 
 ## Rule
 
-Before using or switching models:
+Before selecting or recommending a model:
 - classify the task by risk, ambiguity, and context size
-- start with a cheaper capable model
+- prefer a cheaper capable model first
 - escalate only after one reasonable failure or when the task is clearly high risk
+- do not assume the current session can switch models programmatically
+
+## Default vs plugins
+
+- In default OpenCode setups, model selection is manual or config-driven
+- Some third-party plugins add automatic routing, fallback, or context-based model changes
+- Write recommendations so they still work without a plugin: recommend the right model first, then use plugin automation only when it is actually installed
 
 ## Routing
 
@@ -34,10 +41,13 @@ Before using or switching models:
 
 - One cheap attempt first
 - Escalate one tier at a time
-- After diagnosis on a premium model, drop back to a cheaper model for routine implementation when practical
+- If the environment supports model changes, prefer using stronger models only for the work that needs them
+- If the environment does not support model changes, tell the user which model to switch to and why
+- If a routing or fallback plugin is installed, configure it to follow the same cheapest-capable escalation order
 
 ## Guardrails
 
-- Do not switch models mid-task without a clear reason
+- Do not assume automatic runtime model switching
+- Do not change models without a clear reason when the environment supports switching
 - Do not use premium models for routine search, reading, formatting, or straightforward CRUD work
 - Prefer stable defaults over constantly re-optimizing for tiny quality gains
