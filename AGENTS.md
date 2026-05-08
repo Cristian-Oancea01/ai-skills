@@ -56,6 +56,8 @@ ai-skills/
 │   │       └── source-log.md
 │   ├── session-efficiency/
 │   │   └── SKILL.md               # Session continuation, compaction, and agent-spawning efficiency rules
+│   ├── structured-handoff/
+│   │   └── SKILL.md               # Selective JSON or graph-style handoff for complex coordination tasks
 │   └── small-task-orchestration/
 │       └── SKILL.md               # Lightweight orchestration for small tasks and scripts
 ├── AGENTS.md                      # This file
@@ -82,6 +84,7 @@ ai-skills/
 | `project-bootstrap` | `skills/project-bootstrap/SKILL.md` | Require `AGENTS.md` lookup first for project work |
 | `research-agent` | `skills/research-agent/SKILL.md` | Evidence-first workflow for market scans, competitor review, and opportunity research |
 | `session-efficiency` | `skills/session-efficiency/SKILL.md` | Decide when to continue, compact, restart, or avoid extra agents to preserve useful context cheaply |
+| `structured-handoff` | `skills/structured-handoff/SKILL.md` | Use JSON or graph-style prompts only where structured coordination is worth the extra input |
 | `agent-orchestration` | `skills/agent-orchestration/SKILL.md` | Medium orchestration for larger software tasks |
 | `small-task-orchestration` | `skills/small-task-orchestration/SKILL.md` | Lightweight plan-explore-implement-verify flow for small tasks and scripts |
 

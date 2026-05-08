@@ -28,6 +28,7 @@ If those skills are available, load them in that order.
 - Route work to the cheapest capable model first
 - Allow free models for lightweight work unless the user opts out
 - Keep prompts short, concrete, and non-repetitive
+- Use structured JSON or graph handoff only for complex coordination or high-constraint tasks
 - Reuse useful session context and avoid stale context
 - Avoid unnecessary agent spawning and model switching
 - Escalate to premium models only when the task clearly needs it or a cheaper attempt failed

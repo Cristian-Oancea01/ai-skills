@@ -38,6 +38,13 @@ Reduce token usage without reducing correctness.
 - Name the exact deliverable you need back
 - Avoid broad instructions when a narrow objective will do
 
+## Structured prompts
+
+- Use plain concise language by default; do not force every prompt into JSON or graph form
+- Use structured JSON or graph-style handoff only when the task is complex enough to benefit from explicit fields, dependencies, or outputs
+- Good candidates for structured handoff: orchestration, multi-agent work, architecture, multi-step plans, and tasks with many constraints or required outputs
+- For simple tasks, structured prompts usually add input overhead without enough payoff
+
 ## Output style
 
 - Be concise by default

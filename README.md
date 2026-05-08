@@ -32,6 +32,7 @@ The repo emphasizes:
 | `research-agent` | Evidence-first workflow for market and competitor research |
 | `session-efficiency` | Manage continuation, compaction, fresh starts, and agent fanout efficiently |
 | `small-task-orchestration` | Lightweight plan-explore-implement-verify flow |
+| `structured-handoff` | Use structured JSON or graph prompts only for complex coordination |
 
 ## Recommended default stack
 
@@ -47,6 +48,9 @@ Add these when efficiency matters:
 - `prompt-efficiency`
 - `session-efficiency`
 
+Add this when the task has complex handoffs or many constraints:
+- `structured-handoff`
+
 If you prefer one skill instead of three, load `cost-optimized-defaults`.
 
 ## Efficiency workflow
@@ -60,6 +64,8 @@ Use this sequence when you want better cost and cache behavior:
 5. Prefer `small-task-orchestration` for narrow tasks instead of heavier multi-agent flows.
 
 Or use `cost-optimized-defaults` to apply steps 1 to 3 together.
+
+Use `structured-handoff` only when explicit JSON or graph structure will make a complex handoff clearer.
 
 ## Free-model opt-out
 
@@ -88,7 +94,8 @@ ai-skills/
     ├── prompt-efficiency/
     ├── research-agent/
     ├── session-efficiency/
-    └── small-task-orchestration/
+    ├── small-task-orchestration/
+    └── structured-handoff/
 ```
 
 ## Install
@@ -124,6 +131,7 @@ Reference them from `AGENTS.md`:
 - `model-selection` — route to cheaper capable models first
 - `prompt-efficiency` — reduce token and cache usage through tighter prompts
 - `session-efficiency` — keep useful context and drop stale context cheaply
+- `structured-handoff` — use structured prompts only when plain language is not enough
 ```
 
 ## Maintenance
