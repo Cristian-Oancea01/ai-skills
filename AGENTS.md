@@ -100,6 +100,16 @@ ai-skills/
 
 ---
 
+## Optional Plugins
+
+- These skills must still make sense in a default OpenCode setup with manual or config-driven model selection.
+- If routing or fallback plugins are installed, treat them as optional runtime support for the same cheapest-capable policy rather than as a required assumption.
+- `opencode-auto-fallback` is a good fit for automatic recovery from provider failures, rate limits, and some context-related issues.
+- `opencode-model-router` is a good fit for automatic tier-based routing across cheap, normal, and heavy models.
+- When documenting model behavior in this repo, always describe both cases clearly: without plugins, recommend model changes explicitly; with plugins, let the automation follow the same policy.
+
+---
+
 ## Known Constraints
 
 - The repo contains skills only; there is no runtime application code.
