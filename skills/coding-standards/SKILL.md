@@ -35,6 +35,16 @@ compatibility: opencode
 - Prefer root-cause fixes over symptom patches.
 - Remove dead code and unused imports introduced by the change.
 
+## Prompt efficiency
+- Rewrite the working prompt in your head before acting: keep only the task, constraints, target files or areas, and verification step.
+- Drop repeated background, repeated requirements, and narrative framing once the task is clear.
+- Prefer one precise request over multiple overlapping asks.
+- Use concrete nouns, file paths, function names, and commands instead of broad descriptions when known.
+- When following up in the same session, refer to the existing context instead of restating it in full.
+- Ask at most one short clarifying question when a missing decision blocks correct execution; otherwise proceed.
+- For tool and agent prompts, pass only the minimum context needed for that subtask.
+- Prefer concise outputs by default; expand only when correctness, reviewability, or the user request requires it.
+
 ## Examples
 
 ### Good
