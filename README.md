@@ -20,6 +20,7 @@ The repo emphasizes:
 | `agent-orchestration` | Medium orchestration for larger multi-step software work |
 | `always-plan` | Require a short plan before non-trivial implementation |
 | `coding-standards` | Minimal, production-quality coding and testing rules |
+| `cost-optimized-defaults` | Convenience bundle for model, prompt, and session efficiency |
 | `coverage-increase` | Improve automated coverage in low-risk batches |
 | `enterprise-agent-orchestration` | Heavyweight orchestration for enterprise-scale work |
 | `frontend-ui-guide` | Reuse-first frontend implementation guidance |
@@ -41,9 +42,12 @@ For most coding sessions, load:
 - `coding-standards`
 
 Add these when efficiency matters:
+- `cost-optimized-defaults`
 - `model-selection`
 - `prompt-efficiency`
 - `session-efficiency`
+
+If you prefer one skill instead of three, load `cost-optimized-defaults`.
 
 ## Efficiency workflow
 
@@ -54,6 +58,8 @@ Use this sequence when you want better cost and cache behavior:
 3. Load `session-efficiency` to decide whether to continue, compact, restart, or avoid extra agents.
 4. Use `orchestration-router` before any orchestration skill.
 5. Prefer `small-task-orchestration` for narrow tasks instead of heavier multi-agent flows.
+
+Or use `cost-optimized-defaults` to apply steps 1 to 3 together.
 
 ## Free-model opt-out
 
@@ -71,6 +77,7 @@ ai-skills/
     ├── agent-orchestration/
     ├── always-plan/
     ├── coding-standards/
+    ├── cost-optimized-defaults/
     ├── coverage-increase/
     ├── enterprise-agent-orchestration/
     ├── frontend-ui-guide/
@@ -113,6 +120,7 @@ Reference them from `AGENTS.md`:
 - `always-plan` — make a short plan before non-trivial work
 - `orchestration-router` — choose no orchestration, small, medium, or enterprise
 - `coding-standards` — keep code changes minimal and verified
+- `cost-optimized-defaults` — load model, prompt, and session efficiency together
 - `model-selection` — route to cheaper capable models first
 - `prompt-efficiency` — reduce token and cache usage through tighter prompts
 - `session-efficiency` — keep useful context and drop stale context cheaply

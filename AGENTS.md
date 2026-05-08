@@ -28,6 +28,8 @@ ai-skills/
 │   │   └── SKILL.md               # Planning-first rule before non-trivial implementation
 │   ├── coding-standards/
 │   │   └── SKILL.md               # Minimal coding, testing, and commit hygiene rules
+│   ├── cost-optimized-defaults/
+│   │   └── SKILL.md               # Convenience bundle for model, prompt, and session efficiency
 │   ├── coverage-increase/
 │   │   └── SKILL.md               # Minimal-risk workflow for improving automated test coverage
 │   ├── enterprise-agent-orchestration/
@@ -69,6 +71,7 @@ ai-skills/
 |---|---|---|
 | `always-plan` | `skills/always-plan/SKILL.md` | Require a short plan before non-trivial implementation work |
 | `coding-standards` | `skills/coding-standards/SKILL.md` | Smallest-correct-change coding rules, testing, and sensitive-data hygiene |
+| `cost-optimized-defaults` | `skills/cost-optimized-defaults/SKILL.md` | Apply model selection, prompt efficiency, and session efficiency together for normal coding sessions |
 | `coverage-increase` | `skills/coverage-increase/SKILL.md` | Improve automated test coverage in small, convention-matching batches |
 | `enterprise-agent-orchestration` | `skills/enterprise-agent-orchestration/SKILL.md` | Heavyweight orchestration for enterprise-scale work with explicit role and state boundaries |
 | `frontend-ui-guide` | `skills/frontend-ui-guide/SKILL.md` | Prefer existing frontend components, tokens, and patterns before creating new UI |
