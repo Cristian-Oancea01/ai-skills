@@ -29,6 +29,7 @@ The repo emphasizes:
 | `project-bootstrap` | Read `AGENTS.md` first or create it if missing |
 | `prompt-efficiency` | Tighten prompts and context to reduce token and cache usage |
 | `research-agent` | Evidence-first workflow for market and competitor research |
+| `session-efficiency` | Manage continuation, compaction, fresh starts, and agent fanout efficiently |
 | `small-task-orchestration` | Lightweight plan-explore-implement-verify flow |
 
 ## Recommended default stack
@@ -42,6 +43,7 @@ For most coding sessions, load:
 Add these when efficiency matters:
 - `model-selection`
 - `prompt-efficiency`
+- `session-efficiency`
 
 ## Efficiency workflow
 
@@ -49,8 +51,9 @@ Use this sequence when you want better cost and cache behavior:
 
 1. Load `model-selection` to route the task to the cheapest capable model.
 2. Load `prompt-efficiency` to shorten prompts, reduce repeated context, and keep tool requests narrow.
-3. Use `orchestration-router` before any orchestration skill.
-4. Prefer `small-task-orchestration` for narrow tasks instead of heavier multi-agent flows.
+3. Load `session-efficiency` to decide whether to continue, compact, restart, or avoid extra agents.
+4. Use `orchestration-router` before any orchestration skill.
+5. Prefer `small-task-orchestration` for narrow tasks instead of heavier multi-agent flows.
 
 ## Free-model opt-out
 
@@ -77,6 +80,7 @@ ai-skills/
     ├── project-bootstrap/
     ├── prompt-efficiency/
     ├── research-agent/
+    ├── session-efficiency/
     └── small-task-orchestration/
 ```
 
@@ -111,6 +115,7 @@ Reference them from `AGENTS.md`:
 - `coding-standards` — keep code changes minimal and verified
 - `model-selection` — route to cheaper capable models first
 - `prompt-efficiency` — reduce token and cache usage through tighter prompts
+- `session-efficiency` — keep useful context and drop stale context cheaply
 ```
 
 ## Maintenance

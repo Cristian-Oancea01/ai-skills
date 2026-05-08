@@ -52,6 +52,8 @@ ai-skills/
 │   │       ├── opportunity-report.md
 │   │       ├── research-brief.md
 │   │       └── source-log.md
+│   ├── session-efficiency/
+│   │   └── SKILL.md               # Session continuation, compaction, and agent-spawning efficiency rules
 │   └── small-task-orchestration/
 │       └── SKILL.md               # Lightweight orchestration for small tasks and scripts
 ├── AGENTS.md                      # This file
@@ -76,6 +78,7 @@ ai-skills/
 | `prompt-efficiency` | `skills/prompt-efficiency/SKILL.md` | Reduce token and cache usage by tightening prompts, context, and tool instructions |
 | `project-bootstrap` | `skills/project-bootstrap/SKILL.md` | Require `AGENTS.md` lookup first for project work |
 | `research-agent` | `skills/research-agent/SKILL.md` | Evidence-first workflow for market scans, competitor review, and opportunity research |
+| `session-efficiency` | `skills/session-efficiency/SKILL.md` | Decide when to continue, compact, restart, or avoid extra agents to preserve useful context cheaply |
 | `agent-orchestration` | `skills/agent-orchestration/SKILL.md` | Medium orchestration for larger software tasks |
 | `small-task-orchestration` | `skills/small-task-orchestration/SKILL.md` | Lightweight plan-explore-implement-verify flow for small tasks and scripts |
 
