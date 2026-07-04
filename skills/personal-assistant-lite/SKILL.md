@@ -35,6 +35,7 @@ Execute user prompts like a practical assistant, gather information from website
 - If confidence is low, ask one short confirmation question before saving a preference.
 - Keep learning lightweight: track concise preference bullets, not long memory logs.
 - When asked to persist memory, write a compact file named `_assistant_preferences.md` in the vault root and update it incrementally.
+- Use the template at `skills/personal-assistant-lite/templates/_assistant_preferences.md` as the default structure.
 
 ## Output rules
 
