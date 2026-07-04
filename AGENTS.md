@@ -38,8 +38,8 @@ ai-skills/
 │   │   └── SKILL.md               # Reuse-first frontend UI composition and review guidance
 │   ├── implementation-review/
 │   │   └── SKILL.md               # Findings-first review workflow for completed implementations
-│   ├── model-selection/
-│   │   └── SKILL.md               # Cost-aware model routing with optional free-model opt-out
+│   ├── personal-assistant-lite/
+│   │   └── SKILL.md               # Lightweight web-to-Obsidian assistant workflow
 │   ├── orchestration-router/
 │   │   └── SKILL.md               # Decides whether to use orchestration and which mode
 │   ├── prompt-efficiency/
@@ -78,7 +78,7 @@ ai-skills/
 | `enterprise-agent-orchestration` | `skills/enterprise-agent-orchestration/SKILL.md` | Heavyweight orchestration for enterprise-scale work with explicit role and state boundaries |
 | `frontend-ui-guide` | `skills/frontend-ui-guide/SKILL.md` | Prefer existing frontend components, tokens, and patterns before creating new UI |
 | `implementation-review` | `skills/implementation-review/SKILL.md` | Findings-first review of completed implementations, focused on correctness and regressions |
-| `model-selection` | `skills/model-selection/SKILL.md` | Route tasks to cheaper capable models first, with an explicit opt-out for free-model usage |
+| `personal-assistant-lite` | `skills/personal-assistant-lite/SKILL.md` | Lightweight workflow for web research/extraction and Obsidian-ready outputs |
 | `orchestration-router` | `skills/orchestration-router/SKILL.md` | Decide whether to use no orchestration, small, medium, or enterprise orchestration |
 | `prompt-efficiency` | `skills/prompt-efficiency/SKILL.md` | Reduce token and cache usage by tightening prompts, context, and tool instructions |
 | `project-bootstrap` | `skills/project-bootstrap/SKILL.md` | Require `AGENTS.md` lookup first for project work |
@@ -102,11 +102,8 @@ ai-skills/
 
 ## Optional Plugins
 
-- These skills must still make sense in a default OpenCode setup with manual or config-driven model selection.
-- If routing or fallback plugins are installed, treat them as optional runtime support for the same cheapest-capable policy rather than as a required assumption.
-- `opencode-auto-fallback` is a good fit for automatic recovery from provider failures, rate limits, and some context-related issues.
-- `opencode-model-router` is a good fit for automatic tier-based routing across cheap, normal, and heavy models.
-- When documenting model behavior in this repo, always describe both cases clearly: without plugins, recommend model changes explicitly; with plugins, let the automation follow the same policy.
+- This repo should not depend on model-routing plugins.
+- Skills must remain usable in default OpenCode setups without plugin-based routing assumptions.
 
 ---
 

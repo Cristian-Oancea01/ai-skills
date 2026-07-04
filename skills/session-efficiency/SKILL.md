@@ -39,7 +39,6 @@ Preserve useful context and avoid paying for stale or duplicated context.
 - Avoid unnecessary model changes unless there is a clear reason
 - In default OpenCode setups, treat model choice as manual or config-driven
 - If the user or environment can switch models, prefer stronger models only for the parts that need them
-- If a plugin adds automatic routing or fallback, keep its behavior aligned with the same escalation rules instead of creating a separate policy
 - If the current environment cannot switch models directly, tell the user what to change and why
 
 ## Rule of thumb
