@@ -1,6 +1,6 @@
 ---
 name: personal-assistant-lite
-description: Lightweight personal assistant workflow for web-to-Obsidian tasks from OpenCode prompts
+description: Use for Obsidian vault notes, personal assistant tasks, web research, extraction, and clean Markdown outputs from OpenCode prompts
 license: MIT
 compatibility: opencode
 ---
@@ -11,9 +11,10 @@ Execute user prompts like a practical assistant, gather information from website
 
 ## Use when
 
+- The user asks for Obsidian notes, vault-ready Markdown, or note drafting.
 - The user asks for web research, extraction, transformation, or synthesis.
-- The final output should be consumed in Obsidian notes.
-- The task should stay lightweight and direct.
+- The user wants a lightweight personal assistant style response.
+- The task should stay direct and avoid heavy orchestration.
 
 ## Workflow
 
@@ -58,3 +59,4 @@ Execute user prompts like a practical assistant, gather information from website
 - "Compare A vs B from official docs and produce a decision checklist."
 - "Read this page and create a Mermaid flowchart of the process."
 - "Create an Obsidian note draft with summary, key facts, and next actions."
+- "Turn this into a vault-ready note."
